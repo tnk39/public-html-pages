@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>尾道4人旅｜10/24 空室表示あり7候補</title>
+<style>
+:root{--ink:#17343d;--muted:#64777e;--sea:#087d89;--deep:#0c5360;--bg:#edf4f4;--paper:#fff;--line:#d8e6e8;--good:#177640;--warn:#a95d09;--bad:#a83a31;--shadow:0 14px 38px rgba(9,62,73,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP","Yu Gothic",system-ui,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1220px;margin:auto}
+.hero{min-height:520px;position:relative;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#174e5a}.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,15,25,.05),rgba(0,30,40,.88))}
+.heroin{position:relative;z-index:2;width:min(1220px,100%);margin:auto;padding:70px 28px 55px}.eyebrow{font-weight:900;letter-spacing:.16em;font-size:13px}.hero h1{font-size:clamp(38px,6vw,70px);line-height:1.08;margin:8px 0 15px}.hero p{font-size:clamp(16px,2vw,21px);max-width:950px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.chip{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.24);font-weight:800;font-size:13px}
+main{padding:30px 18px 80px}.notice{margin-top:-48px;position:relative;z-index:3;background:#fff;border-left:6px solid var(--sea);border-radius:20px;padding:21px 24px;box-shadow:var(--shadow)}.notice strong{color:var(--deep)}
+.section{margin-top:42px}.section h2{font-size:clamp(27px,4vw,40px);margin:0 0 8px}.lead{color:var(--muted);margin:0 0 20px}
+.warning{background:#fff5e9;border-left:5px solid #d17b16;border-radius:15px;padding:15px 17px;margin-top:15px}.warning b{color:#8a4b05}
+.tablewrap{overflow-x:auto;background:#fff;border-radius:20px;box-shadow:var(--shadow)}table{width:100%;border-collapse:collapse;min-width:960px}th{background:#0b606b;color:#fff;text-align:left;padding:12px 10px;font-size:12.5px}td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:12.5px}tr:nth-child(even) td{background:#f8fbfb}.status{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:900;font-size:11px}.s1{background:#e6f7ec;color:var(--good)}.s2{background:#fff1df;color:var(--warn)}.budget{font-weight:900;color:var(--deep)}
+.cards{display:grid;grid-template-columns:1fr;gap:25px}.hotel{background:#fff;border:1px solid var(--line);border-radius:23px;overflow:hidden;box-shadow:var(--shadow)}.hotelgrid{display:grid;grid-template-columns:40% 60%}.visual{min-height:460px;background:linear-gradient(145deg,#0e7480,#7fc0c5);position:relative}.visual img{width:100%;height:100%;min-height:460px;object-fit:cover}.visual:after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(transparent,rgba(0,26,36,.8))}.title{position:absolute;z-index:2;left:21px;right:20px;bottom:18px;color:#fff}.title .no{font-size:12px;font-weight:900}.title h3{font-size:29px;line-height:1.2;margin:3px 0}.fallback{height:100%;min-height:460px;display:grid;place-items:center;text-align:center;color:#fff;padding:25px;font-size:27px;font-weight:900}
+.body{padding:22px 24px}.pricebar{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}.pricebox{padding:11px 12px;border-radius:13px;background:#eef7f7}.pricebox b{display:block;font-size:11px;color:#5a6e74}.pricebox span{display:block;font-weight:900;font-size:18px;margin-top:1px}.pricebox.good{background:#e9f7ed}.pricebox.warn{background:#fff4e6}
+.facts{display:grid;grid-template-columns:105px 1fr;gap:6px 10px;font-size:13.5px}.facts b{color:#50656c}.subgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}.box{border-radius:14px;padding:13px 14px;background:#f3f8f8}.box.food{background:#fff5e9}.box.sight{background:#f2f4ff}.box h4{margin:0 0 7px;font-size:14px;color:var(--deep)}.box p,.box ul{font-size:12.8px;margin:0}.box ul{padding-left:18px}
+.foodpics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}.foodpics img{width:100%;height:155px;object-fit:cover;border-radius:12px;background:#d9e5e6}.foodlabel{font-size:11px;color:#6d7c82;margin-top:3px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.btn{padding:8px 11px;border-radius:10px;text-decoration:none;background:#0d6671;color:#fff;font-size:12px;font-weight:900}.btn.alt{background:#e5f0f1;color:#145760}.btn.food{background:#ac681b}
+.memo{margin-top:14px;padding:12px 14px;border-radius:13px;background:#eef8f8;font-size:13px}.memo.warn{background:#fff4e6;color:#74400a}.memo.bad{background:#ffefed;color:#7a332e}.src{font-size:11px;color:#73838a;margin-top:11px}
+.final{background:#0e4b57;color:#fff;border-radius:21px;padding:22px 24px}.final strong{color:#bdf4f5}.rank{font-weight:900;color:#0b6672}.event{background:#fff0e4;border:1px solid #f0c99d;border-radius:18px;padding:17px 19px}.event h3{margin:0 0 6px;color:#8c4b05}
+footer{text-align:center;color:#75858b;font-size:12px;margin-top:45px}
+@media(max-width:900px){.hotelgrid{grid-template-columns:1fr}.visual,.visual img,.fallback{min-height:300px}.subgrid,.pricebar,.foodpics{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.subgrid,.pricebar,.foodpics{grid-template-columns:1fr}.body{padding:18px}.title h3{font-size:25px}}
+</style>
+</head>
+<body>
+<header class="hero">
+<img src="https://www.gambo-ad.com/upload/hotels/yado-topimg_28l.jpg" alt="尾道・向島">
+<div class="heroin">
+<div class="eyebrow">AVAILABLE CANDIDATES • 2026/10/24</div>
+<h1>尾道4人旅<br>空室表示あり 7候補</h1>
+<p>満室表示の宿は外しました。2026年10月24日(土)に<b>空室○または日別料金が表示されている宿だけ</b>を再抽出し、4人の料金・部屋・食事・観光・注意点までまとめています。</p>
+<div class="chips"><span class="chip">大人4人</span><span class="chip">尾道市内限定</span><span class="chip">目安60,000円</span><span class="chip">空室表示ありのみ</span></div>
+</div>
+</header>
+
+<main class="wrap">
+<div class="notice"><strong>結論：</strong>いま一番面白いのは、安さなら<strong>古民家民泊 花</strong>、温泉＋2食なら<strong>旅館 河野温泉</strong>、眺望＋料理まで含めるなら<strong>尾道やすらぎの宿 しーそー</strong>です。空室は刻々と変わるので、直近確認日も併記しています。</div>
+
+<section class="section">
+<h2>まず料金と空室だけ見る</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>#</th><th>宿</th><th>10/24空室根拠</th><th>4人料金の目安</th><th>食事</th><th>4人同室</th><th>予算評価</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>旅館 河野温泉</b></td><td><span class="status s1">10/3時点 ○</span></td><td class="budget">2食付33,000円〜</td><td>朝夕あり</td><td>和室・要部屋確認</td><td>◎</td></tr>
+<tr><td>2</td><td><b>古民家民泊 花</b></td><td><span class="status s2">9/18時点 ○</span></td><td class="budget">一棟20,400円</td><td>なし／自炊可</td><td>◎ 一棟貸し</td><td>◎◎</td></tr>
+<tr><td>3</td><td><b>B&amp;B潮風</b></td><td><span class="status s2">9/18時点 ○</span></td><td class="budget">朝食付20,000円</td><td>朝食あり</td><td>4人は2室推奨</td><td>◎◎</td></tr>
+<tr><td>4</td><td><b>尾道やすらぎの宿 しーそー</b></td><td><span class="status s2">10/24価格表示</span></td><td class="budget">2食付58,800円〜※通常4名料金</td><td>朝夕あり</td><td>◎ 和室4名</td><td>○〜◎</td></tr>
+<tr><td>5</td><td><b>住之江旅館</b></td><td><span class="status s2">10/24 49,158円表示※2名</span></td><td class="budget">素泊り63,160円〜</td><td>海鮮会席あり</td><td>◎ 海側10畳</td><td>△</td></tr>
+<tr><td>6</td><td><b>SOIL Setoda</b></td><td><span class="status s2">10/24 72,040円表示※2名</span></td><td class="budget">4名額は要確認</td><td>MINATOYA</td><td>◎ 4人客室あり</td><td>△〜×</td></tr>
+<tr><td>7</td><td><b>尾道倶楽部</b></td><td><span class="status s2">10/24 87,978円表示※2名</span></td><td class="budget">予算超過濃厚</td><td>YUKAI</td><td>◎ 4ベッド</td><td>×</td></tr>
+</tbody>
+</table></div>
+<div class="warning"><b>「空いている」の意味：</b>河野温泉は10/3更新の空室表で明確に○。花・潮風は掲載空室表で○ですが更新が9/18なので、予約直前の再確認が必要です。残り4軒は10/24の日別価格が販売サイトに出ている＝販売在庫表示あり、と判断しています。</div>
+</section>
+
+<section class="section">
+<div class="event"><h3>10/24〜25は尾道駅前で「第39回グルメサミットin尾道」</h3><p style="margin:0">10/24は10:00〜17:00、尾道駅前港湾緑地で開催予定です。中心部は普段より混雑する可能性があります。人混みを避けるなら、<b>向島・瀬戸田を宿泊拠点にして中心部を短時間だけ回る</b>構成が相性よさそうです。</p></div>
+</section>
+
+<section class="section">
+<h2>空室表示あり7候補・詳細</h2>
+<p class="lead">予算だけでなく、料理・室内・周辺観光・4人での使いやすさまで比較。</p>
+<div class="cards">
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://www.gambo-ad.com/upload/hotels/yado-topimg_28l.jpg" alt="旅館河野温泉"><div class="title"><div class="no">NO.1</div><h3>旅館 河野温泉</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>○ 宿泊可</span></div><div class="pricebox good"><b>1泊2食</b><span>8,250円/人〜</span></div><div class="pricebox"><b>4人合計</b><span>33,000円〜</span></div></div>
+<div class="facts"><b>エリア</b><span>向島。尾道駅から徒歩＋渡船で約10〜15分。</span><b>特徴</b><span>ラドン温泉付きの昔ながらの旅館。客室から尾道の街並みを望める案内あり。</span><b>料理</b><span>主人・女将が市場で魚を仕入れ、尾道の魚を使った素朴な和食。2食付き8,250円例あり。</span><b>観光</b><span>千光寺公園は車10分＋船5分、ロープウェイ山麓駅は徒歩12分＋船5分の案内。</span></div>
+<div class="subgrid"><div class="box"><h4>🛏 室内</h4><p>和室15室。4名部屋の在庫は「宿全体○」とは別なので予約時に部屋割りを確認。</p></div><div class="box food"><h4>🍽 食事</h4><p>尾道の新鮮魚を使う家庭的な旅館料理。宿で夕食まで完結しやすい。</p></div><div class="box sight"><h4>♿ 注意</h4><p>古い旅館のため、車椅子の館内動線・浴場段差は事前電話確認推奨。</p></div></div>
+<div class="btns"><a class="btn" href="https://www.gambo-ad.com/hotel/?ar=2&id=28" target="_blank">宿情報</a><a class="btn alt" href="https://www.gambo-ad.com/hotel/avail.php?ar=2&id=28&rooms=200&ym=202610" target="_blank">空室表</a><a class="btn food" href="https://www.gambo-ad.com/hotel/foods.php?ar=2&id=28" target="_blank">料理</a></div>
+<div class="memo"><b>総合：</b>今回の条件ではかなり強い。4人2食付きでも予算に余裕があり、中心部より混雑を少し避けられる。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://www.gambo-ad.com/upload/hotels/yado-topimg_459l.jpg" alt="古民家民泊花"><div class="title"><div class="no">NO.2</div><h3>古民家民泊 花</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>○ 掲載あり</span></div><div class="pricebox good"><b>4名一棟</b><span>20,400円</span></div><div class="pricebox"><b>1人換算</b><span>5,100円</span></div></div>
+<div class="facts"><b>エリア</b><span>向東町。約200年前の古民家を一棟貸切。</span><b>室内</b><span>和室5室＋ダイニング。通常6名まで。土間キッチン、冷蔵庫、炊飯器、電子レンジ等。</span><b>食事</b><span>食事提供なし。自炊、向島の店、渡船で尾道中心街へ出る使い方。</span><b>駐車</b><span>3台。JR尾道駅・新尾道駅・向島桟橋への送迎案内あり。</span></div>
+<div class="subgrid"><div class="box"><h4>🏠 最大の魅力</h4><p>4人全員で家一軒を使える。夜も同じリビング・ダイニングで過ごせる。</p></div><div class="box food"><h4>🍳 食事自由度</h4><p>宿代が安いので、夕食予算を尾道の海鮮やグルメへ回しやすい。</p></div><div class="box sight"><h4>♿ 注意</h4><p>築約200年の古民家。バリアフリー対応の明記はなく、段差確認が必須。</p></div></div>
+<div class="btns"><a class="btn" href="https://www.gambo-ad.com/hotel/?ar=2&id=459" target="_blank">宿情報</a><a class="btn alt" href="https://www.gambo-ad.com/hotel/avail.php?ar=2&id=459" target="_blank">空室表</a><a class="btn food" href="https://www.gambo-ad.com/hotel/foods.php?ar=2&id=459" target="_blank">キッチン・食事案内</a></div>
+<div class="memo"><b>コスパ：</b>7候補で最強。ただし車椅子動線が適合するか確認してから本命化したい。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://www.gambo-ad.com/upload/hotels/yado-topimg_415l.jpg" alt="B&B潮風"><div class="title"><div class="no">NO.3</div><h3>B&amp;B潮風</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>○ 掲載あり</span></div><div class="pricebox good"><b>朝食付</b><span>5,000円/人</span></div><div class="pricebox"><b>4人合計</b><span>20,000円</span></div></div>
+<div class="facts"><b>エリア</b><span>向島。駅前渡船を降りて徒歩約3分。</span><b>客室</b><span>小洋室2名、和室2名、大洋室3名。現在の公式案内では4人なら2室が安全。</span><b>朝食</b><span>「ごはん食」または「パン食」を選択。夕食は提供せず、尾道の店を紹介。</span><b>設備</b><span>共用風呂、無料Wi‑Fi、駐車2台。</span></div>
+<div class="subgrid"><div class="box"><h4>🛏 雰囲気</h4><p>「尾道の親戚の家に泊まりに来た」感覚の小さなB&amp;B。</p></div><div class="box food"><h4>🍞 朝食</h4><p>朝食込みでも4人2万円。夕食を外食に全振りできる。</p></div><div class="box sight"><h4>♿ 配慮</h4><p>身体障害者受入は「事前に知らせてください」と掲載。詳細動線は要確認。</p></div></div>
+<div class="btns"><a class="btn" href="https://bb-shiokaze.jp/" target="_blank">公式</a><a class="btn alt" href="https://bb-shiokaze.jp/about/rooms/" target="_blank">客室・朝食</a><a class="btn alt" href="https://bb-shiokaze.jp/reservation/" target="_blank">予約</a></div>
+<div class="memo"><b>相性：</b>低価格・静かさ・人の温かさを重視するなら有力。ホテルらしい設備を求める場合は弱い。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><div class="fallback">尾道やすらぎの宿<br>しーそー<br><span style="font-size:15px;font-weight:600">向島から尾道水道を一望</span></div><div class="title"><div class="no">NO.4</div><h3>尾道やすらぎの宿 しーそー</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>32,200円表示※2名</span></div><div class="pricebox good"><b>4名2食 通常</b><span>14,700円/人〜</span></div><div class="pricebox"><b>4人目安</b><span>58,800円〜</span></div></div>
+<div class="facts"><b>4人部屋</b><span>海側和室8畳は1〜4名。海側12畳は2〜6名。</span><b>眺望</b><span>向島側から尾道水道・尾道の町並みと夜景を望むのが売り。</span><b>食事</b><span>2食付きプランあり。4名利用で14,700円/人の現行プラン掲載。</span><b>注意</b><span>宿への坂が急という口コミが複数。駐車場から玄関までの移動は車椅子旅行では最重要確認点。</span></div>
+<div class="subgrid"><div class="box"><h4>🌃 景色</h4><p>部屋から尾道の街を眺めたいなら7候補中トップ級。</p></div><div class="box food"><h4>🍽 料理</h4><p>夕食付きでも予算上限付近に収められる通常プランがある。</p></div><div class="box sight"><h4>♿ 車椅子</h4><p>坂道が大きな弱点。乗降場所とスタッフ対応を事前確認したい。</p></div></div>
+<div class="btns"><a class="btn" href="https://www.seeso.jp/" target="_blank">公式</a><a class="btn alt" href="https://www.seeso.jp/room/owa12.html" target="_blank">12畳客室</a><a class="btn food" href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/166267" target="_blank">料金・食事プラン</a></div>
+<div class="memo"><b>本命候補：</b>景色＋夕朝食＋60,000円近辺というバランスが良い。ただし10/24の4人同室・2食プランの最終額は予約画面で確定させる。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://www.gambo-ad.com/upload/hotels/yado-topimg_221l.jpg" alt="住之江旅館"><div class="title"><div class="no">NO.5</div><h3>住之江旅館</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>49,158円※2名表示</span></div><div class="pricebox warn"><b>4名素泊り</b><span>15,790円/人</span></div><div class="pricebox warn"><b>4人合計</b><span>63,160円〜</span></div></div>
+<div class="facts"><b>エリア</b><span>瀬戸田・生口島。歴史ある木造旅館。</span><b>4人客室</b><span>オーシャンビュー和室10畳、2〜5名。トイレ・広縁・洗面台付き。</span><b>料理</b><span>瀬戸内の魚介を使った会席。2食付きは4名でも23,265円/人〜の通常帯。</span><b>観光</b><span>耕三寺、平山郁夫美術館、しおまち商店街と組みやすい。</span></div>
+<div class="subgrid"><div class="box"><h4>🏯 魅力</h4><p>古い日本旅館の雰囲気と瀬戸内海ビュー。</p></div><div class="box food"><h4>🐟 料理</h4><p>魚料理を宿でしっかり食べるなら強いが、2食付は予算を大きく超える。</p></div><div class="box sight"><h4>♿ 注意</h4><p>歴史建築なので段差・浴場動線は要電話確認。</p></div></div>
+<div class="btns"><a class="btn" href="https://www.gambo-ad.com/hotel/?ar=2&id=221" target="_blank">宿情報</a><a class="btn food" href="https://www.gambo-ad.com/hotel/foods.php?ar=2&id=221" target="_blank">料理</a><a class="btn alt" href="https://hotel.travel.rakuten.co.jp/hotelinfo/plan/12605" target="_blank">4名料金</a></div>
+<div class="memo warn"><b>予算：</b>素泊りでも基準60,000円を約3,160円超える。ただし瀬戸田で旅館・海景色を重視するなら比較に残す価値あり。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://prd-assets.chillnn.com/_img/public/hotel/1771d55b0ec397/contents/1771d55b1fa1ba/1624074315694/1624074315695.jpg" alt="SOIL Setoda"><div class="title"><div class="no">NO.6</div><h3>SOIL Setoda</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>72,040円※2名表示</span></div><div class="pricebox warn"><b>4人部屋</b><span>あり</span></div><div class="pricebox warn"><b>予算</b><span>超過濃厚</span></div></div>
+<div class="facts"><b>エリア</b><span>瀬戸田港・しおまち商店街。</span><b>客室</b><span>4人用ファミリー客室あり。島の町に滞在するデザイン宿。</span><b>食事</b><span>併設MINATOYA。地元食材や瀬戸内魚介、薪火料理など。</span><b>観光</b><span>耕三寺・未来心の丘、平山郁夫美術館、港周辺散策。</span></div>
+<div class="foodpics">
+<div><img src="https://prd-assets.chillnn.com/_img/public/hotel/1771d55b0ec397/contents/1771d55b1fa1ba/1624074315694/1624074315695.jpg" alt="SOIL"><div class="foodlabel">SOIL Setoda</div></div>
+<div><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=75" alt="食卓イメージ"><div class="foodlabel">※食事の構成イメージではなく装飾写真</div></div>
+</div>
+<div class="btns"><a class="btn" href="https://soilis.co/setoda/" target="_blank">公式</a><a class="btn food" href="https://soilis.co/setoda/" target="_blank">MINATOYA</a><a class="btn alt" href="https://www.tour.ne.jp/j_hotel/59811/" target="_blank">10/24料金表示</a></div>
+<div class="memo warn"><b>評価：</b>旅行体験は魅力的だが、今回の予算条件では優先順位を下げる。</div>
+</div></div></article>
+
+<article class="hotel"><div class="hotelgrid">
+<div class="visual"><img src="https://onomichi-club.jp/wp/wp-content/themes/onomichi/img/fig_room_rooms_comfort_01.webp" alt="尾道倶楽部"><div class="title"><div class="no">NO.7</div><h3>尾道倶楽部</h3></div></div>
+<div class="body">
+<div class="pricebar"><div class="pricebox good"><b>10/24</b><span>87,978円※2名表示</span></div><div class="pricebox"><b>4人客室</b><span>4ベッド・39㎡</span></div><div class="pricebox warn"><b>予算</b><span>大幅超過</span></div></div>
+<div class="facts"><b>立地</b><span>千光寺山の高台。尾道水道の眺望を重視したホテル。</span><b>客室</b><span>コンフォートフォースはセミダブル4台・39㎡。</span><b>料理</b><span>レストランYUKAI。広島県産肉・瀬戸内魚介・地元野菜等。</span><b>観光</b><span>千光寺、千光寺公園、文学のこみち。</span></div>
+<div class="foodpics">
+<div><img src="https://onomichi-club.jp/wp/wp-content/uploads/2025/07/%E3%80%90%E3%83%A9%E3%83%B3%E3%83%81%E3%80%91%E7%80%AC%E6%88%B8%E5%86%85%E5%90%8D%E7%89%A9%E7%A9%B4%E5%AD%90%E3%81%AE%E5%9C%9F%E9%8D%8B%E9%A3%AF-700x467.jpg" alt="穴子土鍋ご飯"><div class="foodlabel">瀬戸内名物 穴子の土鍋ご飯</div></div>
+<div><img src="https://onomichi-club.jp/wp/wp-content/uploads/2025/07/%E3%80%90%E3%83%A9%E3%83%B3%E3%83%81%E3%80%91%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%8A%E3%83%AB%E3%83%96%E3%82%A4%E3%83%A4%E3%83%99%E3%83%BC%E3%82%B9-700x467.jpg" alt="ブイヤベース"><div class="foodlabel">オリジナルブイヤベース</div></div>
+<div><img src="https://onomichi-club.jp/wp/wp-content/themes/onomichi/img/fig_restaurant_01.webp" alt="YUKAI"><div class="foodlabel">レストラン YUKAI</div></div>
+</div>
+<div class="btns"><a class="btn" href="https://onomichi-club.jp/" target="_blank">公式</a><a class="btn alt" href="https://onomichi-club.jp/room/" target="_blank">客室</a><a class="btn food" href="https://onomichi-club.jp/restaurant/" target="_blank">料理</a><a class="btn alt" href="https://www.tour.ne.jp/j_hotel/69922/" target="_blank">10/24料金</a></div>
+<div class="memo warn"><b>評価：</b>質は高いが今回は「空いている高級比較枠」。予算優先なら除外。</div>
+</div></div></article>
+
+</div>
+</section>
+
+<section class="section final">
+<h2 style="margin-top:0">今の優先順位</h2>
+<p><span class="rank">1位 河野温泉</span>：直近空室○＋2食付でも約33,000円〜。<br>
+<span class="rank" style="color:#bdf4f5">2位 しーそー</span>：景色と食事が強く、通常4名2食プランなら58,800円〜で上限付近。<br>
+<span class="rank" style="color:#bdf4f5">3位 古民家民泊 花</span>：一棟20,400円。車椅子動線が問題なければ圧倒的コスパ。<br>
+<span class="rank" style="color:#bdf4f5">4位 B&amp;B潮風</span>：朝食付き4人20,000円。家庭的で静か。</p>
+<p>この4件をまず<strong>4名で本当に予約成立するか／車椅子の館内動線</strong>まで確認してから、予約候補を2件に絞るのが効率的です。</p>
+</section>
+
+<footer>調査基準：2026-10-04。空室は予約・キャンセルで変動します。OTAの「日別価格」は原則2名1室表示のため、4名の最終支払額とは別に明示しています。</footer>
+</main>
+</body>
+</html>
