@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>尾道 海鮮どっさり宿 比較｜2026/10/24・大人4人</title>
+<style>
+:root{
+  --ink:#10242b; --muted:#63767c; --paper:#f5f3ec; --card:#fff;
+  --sea:#0f6574; --sea2:#0b8794; --orange:#d56a21; --red:#b83c32;
+  --green:#267353; --line:#d9e0dd; --gold:#b88727;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+  "Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;background:var(--paper);
+  line-height:1.7
+}
+a{color:var(--sea);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{
+  min-height:420px;display:grid;align-items:end;position:relative;overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(4,32,38,.92),rgba(4,32,38,.58) 58%,rgba(4,32,38,.28)),
+    url('https://trvimg.r10s.jp/share/image_up/20616/origin/28d88b57bb60e05decefed4112eb60ebe647ec42.47.9.26.3.jpg?fit=inside%7C888%3A498')
+    center/cover no-repeat;
+  color:#fff
+}
+.hero-inner{width:min(1120px,92vw);margin:0 auto;padding:70px 0 48px}
+.eyebrow{font-size:12px;letter-spacing:.16em;font-weight:800;color:#9fe6e4}
+h1{font-size:clamp(34px,7vw,68px);line-height:1.05;margin:.2em 0 .25em;letter-spacing:-.03em}
+.hero p{max-width:780px;font-size:17px;margin:0 0 18px;color:#edf7f5}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:6px 11px;border-radius:999px;font-size:13px}
+.wrap{width:min(1120px,92vw);margin:0 auto;padding:34px 0 70px}
+.summary{
+  background:#fff;border-left:6px solid var(--orange);border-radius:12px;padding:20px 22px;
+  box-shadow:0 8px 25px rgba(20,45,50,.07);margin-bottom:28px
+}
+.summary strong{color:#914410}
+h2{font-size:26px;margin:42px 0 16px}
+h3{margin:0;font-size:24px;line-height:1.25}
+.small{font-size:12px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 20px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800}
+.b-green{background:#e6f5ee;color:#176044}
+.b-amber{background:#fff2d8;color:#8b5b08}
+.b-red{background:#fee9e6;color:#9c2f26}
+.b-blue{background:#e7f4f6;color:#0a6570}
+.b-gray{background:#edf0f0;color:#58686d}
+.tablebox{overflow:auto;background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 6px 20px rgba(20,45,50,.05)}
+table{border-collapse:collapse;width:100%;min-width:930px}
+th,td{padding:13px 12px;border-bottom:1px solid #e8ecea;text-align:left;vertical-align:top}
+th{background:#eef6f5;font-size:12px;color:#49636a;position:sticky;top:0;z-index:1}
+td{font-size:14px}
+td strong{font-size:15px}
+.score{font-weight:900;color:var(--orange);white-space:nowrap}
+.status-ok{color:var(--green);font-weight:900}
+.status-check{color:#956112;font-weight:900}
+.status-no{color:var(--red);font-weight:900}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 7px 22px rgba(20,45,50,.06)}
+.card.hero-card{grid-column:span 2;border:2px solid #e3b04b}
+.card-img{height:230px;background:linear-gradient(135deg,#dceceb,#eef1eb);position:relative;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.card-img .fallback{height:100%;display:grid;place-items:center;text-align:center;padding:26px;color:#47636a;font-weight:700}
+.card-body{padding:18px 19px 20px}
+.topline{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.area{font-size:12px;color:var(--muted)}
+.verdict{margin:11px 0;padding:11px 12px;background:#f6f8f7;border-radius:10px;font-weight:700}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.metric{background:#f6f8f7;padding:9px;border-radius:9px}
+.metric span{display:block;font-size:10px;color:var(--muted);font-weight:700}
+.metric b{font-size:15px}
+.list{padding-left:1.1em;margin:10px 0}
+.list li{margin:4px 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-block;padding:8px 11px;border-radius:9px;border:1px solid #b8cbca;font-size:12px;font-weight:800;background:#fff}
+.btn.primary{background:var(--sea);border-color:var(--sea);color:#fff}
+.callout{
+  margin:28px 0;background:#0c4f59;color:#fff;padding:22px;border-radius:15px
+}
+.callout h2{margin:0 0 8px;color:#fff}
+.callout p{margin:4px 0;color:#e9f5f4}
+.source-list{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.source-list li{margin:7px 0}
+footer{color:#6d7b80;font-size:12px;text-align:center;margin-top:48px}
+@media(max-width:760px){
+ .hero{min-height:390px}
+ .hero-inner{padding-bottom:34px}
+ .grid{grid-template-columns:1fr}
+ .card.hero-card{grid-column:auto}
+ .card-img{height:205px}
+ .metrics{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">ONOMICHI SEAFOOD INNS · RESEARCH 2026/10/05</div>
+    <h1>尾道<br>海鮮どっさり宿</h1>
+    <p>「上品な会席」よりも、刺身・煮魚・焼魚・揚げ物が次々出てくる<strong>ボリューム感</strong>を優先して再検索。
+    2026年10月24日（土）・大人4人・尾道市内（向島／因島／生口島）を前提に整理しました。</p>
+    <div class="chips">
+      <span class="chip">大人4人</span><span class="chip">2026/10/24</span>
+      <span class="chip">総額6万円目安</span><span class="chip">海鮮の量を最優先</span>
+      <span class="chip">車椅子情報も表示</span>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="summary">
+    <strong>結論：</strong>
+    海鮮の「量」だけで探すと、今までの候補より
+    <b>民宿 皇船荘</b>と<b>民宿 ふかうら</b>がかなり面白いです。
+    皇船荘は尾道観光協会が「料理の美味しさや量にびっくり」と紹介、
+    ふかうらは楽天トラベルが「ボリューム満点」「海の幸・山の幸がどっさり」と明記しています。
+    ただし両方とも10/24のオンライン空室を確定できなかったため、<b>電話確認候補</b>です。
+    10/24の公開空室が確認できる河野温泉は価格が強い一方、料理量では上の2軒に負けます。
+  </div>
+
+  <h2>いまの優先順位</h2>
+  <div class="legend">
+    <span class="badge b-green">◎ 強く推す</span>
+    <span class="badge b-amber">△ 電話確認</span>
+    <span class="badge b-red">× 条件外 / 満室</span>
+    <span class="badge b-blue">♿ 車椅子情報あり</span>
+  </div>
+
+  <div class="tablebox">
+    <table>
+      <thead>
+        <tr><th>#</th><th>宿</th><th>地域</th><th>海鮮ボリューム</th><th>2食付の目安</th><th>4人総額目安</th><th>10/24</th><th>車椅子</th><th>判断</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>民宿 皇船荘</strong></td><td>生口島・瀬戸田</td><td class="score">★★★★★</td><td>要問合せ</td><td>要問合せ</td><td class="status-check">電話確認</td><td>要確認</td><td>量最優先なら最初に電話したい</td></tr>
+        <tr><td>2</td><td><strong>民宿 ふかうら</strong></td><td>因島</td><td class="score">★★★★★</td><td>6,000円～の地域掲載あり</td><td>約24,000円～</td><td class="status-check">電話確認</td><td>要確認</td><td>圧倒的コスパ候補</td></tr>
+        <tr><td>3</td><td><strong>旅館つつ井</strong></td><td>生口島・瀬戸田</td><td class="score">★★★★★</td><td>プランにより大幅変動</td><td>6万円超の可能性高</td><td class="status-check">要プラン確認</td><td>要確認</td><td>近年口コミの量の裏付けが最強</td></tr>
+        <tr><td>4</td><td><strong>民宿 布刈</strong></td><td>因島</td><td class="score">★★★★☆</td><td>11,000円</td><td>44,000円</td><td class="status-check">電話予約</td><td class="status-no">不可表記</td><td>活魚＋海景色。車椅子が弱点</td></tr>
+        <tr><td>5</td><td><strong>旅館 河野温泉</strong></td><td>向島</td><td class="score">★★★☆☆</td><td>8,250円～</td><td>33,000円～</td><td class="status-ok">10/3時点 ○</td><td>階段要確認</td><td>予算と空室の現実解</td></tr>
+        <tr><td>6</td><td><strong>しまなみおさよの宿</strong></td><td>生口島</td><td class="score">★★★☆☆</td><td>要問合せ</td><td>要問合せ</td><td class="status-check">電話確認</td><td class="status-ok">バリアフリー型</td><td>車椅子優先なら有力</td></tr>
+        <tr><td>参考</td><td><strong>ホテルいんのしま</strong></td><td>因島</td><td class="score">★★★★★</td><td>海鮮桶盛は予算超過寄り</td><td>6万円超</td><td class="status-no">満室</td><td>要確認</td><td>料理は理想形だが10/24不可</td></tr>
+        <tr><td>参考</td><td><strong>住之江旅館</strong></td><td>生口島・瀬戸田</td><td class="score">★★★☆☆</td><td>約22,660円～</td><td>約90,640円～</td><td class="status-check">要確認</td><td>要確認</td><td>魚の質型。今回は価格で不利</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>本命候補を詳しく見る</h2>
+  <div class="grid">
+    <article class="card hero-card">
+      <div class="card-img"><div class="fallback"><div>🐟🐟🐟<br>民宿 皇船荘<br><span class="small">料理写真は下の「実食写真」リンクで確認</span></div></div></div>
+      <div class="card-body">
+        <div class="topline"><span class="badge b-green">量 本命</span><span class="badge b-amber">10/24 電話確認</span></div>
+        <div class="area">生口島・瀬戸田町沢</div><h3>1. 民宿 皇船荘（みふねそう）</h3>
+        <div class="verdict">今回の条件で「まだ掘れていなかった大盛り海鮮宿」の最有力。</div>
+        <div class="metrics"><div class="metric"><span>海鮮量</span><b>5 / 5</b></div><div class="metric"><span>予算</span><b>要電話</b></div><div class="metric"><span>空室</span><b>未確認</b></div></div>
+        <ul class="list"><li>尾道観光協会の2026年更新ページで、女将が料理の<strong>美味しさと量</strong>を売りにしている宿。</li><li>2019年の実食記録では、舟盛り＋鯛塩焼き＋カサゴ唐揚げ＋高級魚煮付けが1人1匹ずつ、さらに大皿料理という内容。</li><li>沢港から徒歩2分。駐車場15台。小規模宿なので混雑回避とも相性が良い。</li><li><strong>確認したいこと：</strong>10/24に4名1室可能か、2食付4名税込総額、車椅子での客室・食事・浴室動線。</li></ul>
+        <div class="actions"><a class="btn primary" href="tel:0845270406">☎ 0845-27-0406</a><a class="btn" href="https://www.ononavi.jp/stay/detail.html?detail_id=242" target="_blank">尾道観光協会</a><a class="btn" href="https://funa888.livedoor.blog/archives/52111472.html" target="_blank">実食写真・記録</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-img"><img src="https://trvimg.r10s.jp/share/HOTEL/37463/37463.jpg" alt="民宿ふかうら" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="fallback" style="display:none">🐟 民宿ふかうら<br><span class="small">画像が表示されない場合は楽天写真へ</span></div></div>
+      <div class="card-body"><div class="topline"><span class="badge b-green">量 本命</span><span class="badge b-green">価格 強い</span><span class="badge b-amber">空室要確認</span></div><div class="area">因島・重井町</div><h3>2. 民宿 ふかうら</h3><div class="verdict">「安くてどっさり」を狙うなら、ここは外せない。</div><div class="metrics"><div class="metric"><span>海鮮量</span><b>5 / 5</b></div><div class="metric"><span>地域掲載2食</span><b>6,000円～</b></div><div class="metric"><span>4人目安</span><b>24,000円～</b></div></div><ul class="list"><li>楽天トラベルの宿紹介が<strong>「ボリューム満点」「新鮮な海の幸・山の幸がどっさり」</strong>と明記。</li><li>因島観光協会の宿一覧では1泊2食6,000円～（税込）の掲載。</li><li>17室、駐車場30台。豪華旅館というより「料理で腹いっぱいになる民宿」方向。</li><li><strong>最大の未確定点：</strong>2026/10/24の4名空室。電話で押さえられるなら非常に強い。</li></ul><div class="actions"><a class="btn primary" href="tel:0845250657">☎ 0845-25-0657</a><a class="btn" href="https://travel.rakuten.co.jp/HOTEL/37463/37463.html" target="_blank">楽天：写真・詳細</a><a class="btn" href="https://kanko-innoshima.jp/staying" target="_blank">因島観光協会</a></div></div>
+    </article>
+
+    <article class="card">
+      <div class="card-img"><img src="https://trvimg.r10s.jp/share/image_up/20616/origin/28d88b57bb60e05decefed4112eb60ebe647ec42.47.9.26.3.jpg?fit=inside%7C888%3A498" alt="旅館つつ井の料理"></div>
+      <div class="card-body"><div class="topline"><span class="badge b-green">量の裏付け最強</span><span class="badge b-red">予算注意</span></div><div class="area">生口島・瀬戸田港前</div><h3>3. 旅館つつ井</h3><div class="verdict">「本当に食べきれないのか？」という点では、近年口コミの証拠が一番強い。</div><div class="metrics"><div class="metric"><span>海鮮量</span><b>5 / 5</b></div><div class="metric"><span>食事評価</span><b>高い</b></div><div class="metric"><span>予算</span><b>超過注意</b></div></div><ul class="list"><li>2026年5月の口コミで<strong>「食べきれないほどの夕食」</strong>、刺身は分厚いとの記述。</li><li>ほかにも「ボリューム満点」「食べきれない」系の口コミが複数。</li><li>料理は理想に近いが、現在見えるプランは予算6万円/4人を超えるケースがある。</li><li>価格が下がるプランやキャンセル枠があるなら再浮上。</li></ul><div class="actions"><a class="btn primary" href="tel:0845272221">☎ 0845-27-2221</a><a class="btn" href="https://travel.yahoo.co.jp/00030055/review/" target="_blank">口コミ</a><a class="btn" href="https://www.tsutsuiryokan.com/" target="_blank">公式</a></div></div>
+    </article>
+
+    <article class="card"><div class="card-img"><div class="fallback">🐠 活魚料理 ＋ 多島美<br>民宿 布刈</div></div><div class="card-body"><div class="topline"><span class="badge b-green">予算内</span><span class="badge b-red">♿ 不可表記</span></div><div class="area">因島・大浜町</div><h3>4. 民宿 布刈</h3><div class="verdict">海鮮・景色・価格は良い。ただし車椅子条件が大きな弱点。</div><div class="metrics"><div class="metric"><span>海鮮量</span><b>4 / 5</b></div><div class="metric"><span>2食付</span><b>11,000円</b></div><div class="metric"><span>4人</span><b>44,000円</b></div></div><ul class="list"><li>瀬戸の新鮮な活魚料理を明記。窓から布刈瀬戸の多島美。</li><li>総4室の小規模民宿で、人混みを避けたい条件にも合う。</li><li>地域公式情報では<strong>バリアフリー対応「不可」</strong>。今回はここを必ず事前確認。</li></ul><div class="actions"><a class="btn primary" href="tel:0845240616">☎ 0845-24-0616</a><a class="btn" href="https://in-no-shima.jp/map/hotel/86/" target="_blank">施設情報</a></div></div></article>
+
+    <article class="card"><div class="card-img"><img src="https://www.gambo-ad.com/upload/foods/foods-pic_182-1m.jpg" alt="河野温泉の料理"></div><div class="card-body"><div class="topline"><span class="badge b-green">10/3時点 ○</span><span class="badge b-green">低価格</span><span class="badge b-gray">量は普通寄り</span></div><div class="area">向島・尾道水道沿い</div><h3>5. 旅館 河野温泉</h3><div class="verdict">「確実に予算内に近づける」現実解。ただし海鮮どっさり最優先では上位2軒に軍配。</div><div class="metrics"><div class="metric"><span>海鮮量</span><b>3 / 5</b></div><div class="metric"><span>2食付</span><b>8,250円～</b></div><div class="metric"><span>10/24</span><b>○※</b></div></div><ul class="list"><li>高枕の10/3更新カレンダーでは10/24「○」。一方、JTB等では10/24の販売表示なし。<strong>直販枠を電話確認する価値あり</strong>。</li><li>地魚を使った家庭的な食事。豪快な舟盛り型というより素朴な料理旅館。</li><li>建物は階段動線があるため、車椅子利用時は客室階と食事場所を確認。</li></ul><div class="actions"><a class="btn primary" href="tel:0848441242">☎ 0848-44-1242</a><a class="btn" href="https://www.gambo-ad.com/hotel/avail.php?ar=2&id=28&rooms=200&ym=202610" target="_blank">10月空室</a></div><div class="note">※公開カレンダーは2026/10/3現在。空室は変動します。</div></div></article>
+
+    <article class="card"><div class="card-img"><div class="fallback">♿ 🐟<br>新鮮な魚料理 × バリアフリー<br>しまなみおさよの宿</div></div><div class="card-body"><div class="topline"><span class="badge b-blue">♿ バリアフリー型</span><span class="badge b-amber">料金・空室要確認</span></div><div class="area">生口島・荻</div><h3>6. しまなみおさよの宿</h3><div class="verdict">海鮮の「量」は未確認だが、車椅子条件まで合わせると重要な対抗候補。</div><div class="metrics"><div class="metric"><span>海鮮量</span><b>3 / 5?</b></div><div class="metric"><span>2食付</span><b>あり</b></div><div class="metric"><span>♿</span><b>強い</b></div></div><ul class="list"><li>尾道観光協会が「新鮮な魚料理」「家庭的な手料理」「バリアフリータイプの民泊」と明記。</li><li>小規模で静かに泊まりたい場合に合う。</li><li>4名の部屋構成・10/24料金・夕食量を電話で確認したい。</li></ul><div class="actions"><a class="btn primary" href="tel:08025914588">☎ 080-2591-4588</a><a class="btn" href="https://www.ononavi.jp/stay/detail.html?detail_id=989" target="_blank">尾道観光協会</a></div></div></article>
+  </div>
+
+  <div class="callout"><h2>電話する順番</h2><p><b>① 皇船荘 → ② ふかうら → ③ 河野温泉 → ④ 布刈 → ⑤ おさよの宿</b></p><p>聞く内容は共通で「10月24日、大人4名、1泊2食、4人同室、税込総額、海鮮料理の内容と量、車椅子での移動可否」です。</p><p>特に皇船荘には「魚料理が多めのプラン／おまかせで料理を増やせるか」を聞く価値があります。</p></div>
+
+  <h2>今回は外したが、料理写真として参考になる宿</h2>
+  <div class="grid">
+    <article class="card"><div class="card-img"><img src="https://www.hotel-innoshima.jp/img/kaiseki/okemori.jpg?1661932380=" alt="ホテルいんのしま 海鮮桶盛"></div><div class="card-body"><div class="topline"><span class="badge b-red">10/24 満室</span></div><h3>ホテルいんのしま</h3><p>海鮮桶盛コースは今回の「見た目からボリュームがある海鮮」の理想に近いですが、公式空室カレンダーでは10/24は全タイプ満室。</p><div class="actions"><a class="btn" href="https://www.hotel-innoshima.jp/calendar.cgi" target="_blank">公式空室</a></div></div></article>
+    <article class="card"><div class="card-img"><img src="https://www.gambo-ad.com/upload/foods/foods-pic_1107-1m.jpg" alt="住之江旅館の地魚料理"></div><div class="card-body"><div class="topline"><span class="badge b-red">予算超過</span><span class="badge b-gray">質重視</span></div><h3>住之江旅館</h3><p>天然魚介、1匹付けの魚料理、お造りなど「魚の質」は強い一方、日付指定なしのスタンダードでも約22,660円/人～の表示があり、4人6万円目安から大きく外れます。</p><div class="actions"><a class="btn" href="https://travel.yahoo.co.jp/00904228/10607245/10115979/" target="_blank">料理プラン</a></div></div></article>
+  </div>
+
+  <h2>判断基準</h2>
+  <div class="source-list"><ul><li><b>海鮮量：</b>公式・観光協会の表現、近年口コミ、実食記録で「食べきれない」「どっさり」「ボリューム満点」が確認できるか。</li><li><b>価格：</b>1人15,000円、4人60,000円を目安。日付未指定価格は「参考」であり予約価格ではありません。</li><li><b>空室：</b>2026/10/24の表示を優先。電話予約のみの民宿は「未確認」と明確に分離。</li><li><b>車椅子：</b>明示的なバリアフリー情報を優先し、不明は「要確認」。料理が良くても移動困難なら順位を下げます。</li><li><b>人混み：</b>大型ホテルより、小規模な民宿・料理旅館を加点。</li></ul></div>
+
+  <h2>主な情報源</h2>
+  <div class="source-list"><ol><li><a href="https://www.ononavi.jp/stay/detail.html?detail_id=242" target="_blank">尾道観光協会：民宿皇船荘（2026-03-20更新）</a></li><li><a href="https://travel.rakuten.co.jp/HOTEL/37463/37463.html" target="_blank">楽天トラベル：民宿ふかうら</a></li><li><a href="https://kanko-innoshima.jp/staying" target="_blank">因島観光協会：宿泊施設一覧</a></li><li><a href="https://travel.yahoo.co.jp/00030055/review/" target="_blank">Yahoo!トラベル：旅館つつ井 口コミ</a></li><li><a href="https://in-no-shima.jp/map/hotel/86/" target="_blank">いんのしまグルメマップ：民宿布刈</a></li><li><a href="https://www.gambo-ad.com/hotel/avail.php?ar=2&id=28&rooms=200&ym=202610" target="_blank">高枕：旅館河野温泉 10月空室</a></li><li><a href="https://www.ononavi.jp/stay/detail.html?detail_id=989" target="_blank">尾道観光協会：しまなみおさよの宿</a></li><li><a href="https://www.hotel-innoshima.jp/calendar.cgi" target="_blank">ホテルいんのしま：公式空室カレンダー</a></li></ol><p class="note">調査日：2026-10-05。宿泊料金・空室・料理内容は変動するため、予約時に宿へ再確認してください。過去の実食記録は料理傾向の参考として扱い、現在の提供内容を保証するものではありません。</p></div>
+
+  <footer>尾道 海鮮どっさり宿 調査版 · 2026-10-05</footer>
+</main>
+</body>
+</html>
