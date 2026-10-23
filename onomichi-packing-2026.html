@@ -52,6 +52,13 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}
 .footer{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.action{background:white;border:1px solid #cddfd7;border-radius:10px;padding:10px 15px;color:#195c4c;font-size:.84rem;font-weight:800}
 .warning{font-size:.81rem;color:#62726f;margin-top:16px}
 #fileInput{display:none}
+.sync-panel{padding:15px 19px;margin-top:15px;background:#f1f8fc;border:1px solid #c8e1e9;border-radius:15px}
+.sync-main{display:flex;flex-wrap:wrap;justify-content:space-between;gap:9px;align-items:center}
+.sync-name{font-weight:800;color:#205675}.sync-desc{font-size:.81rem;color:#446875;margin:5px 0 10px}
+.sync-actions{display:flex;gap:7px;flex-wrap:wrap}.sync-btn{border:1px solid #b6d5db;background:#fff;color:#1e5962;padding:8px 12px;font-size:.83rem;border-radius:9px;font-weight:750}
+.sync-panel[data-state=active]{background:#ecf8f3;border-color:#9ecfbb}.sync-panel[data-state=active] .sync-name{color:#126c48}
+.sync-panel[data-state=offline]{background:#fff6e9;border-color:#e4d2ad}.sync-panel[data-state=offline] .sync-name{color:#985b22}
+@media print{.sync-panel{display:none}}
 @media(max-width:700px){.wrap{padding:12px 12px 55px}.hero{padding:21px 17px;border-radius:18px}.intro{padding:13px 15px}.toolbar{display:block}.tabs{margin-bottom:13px}.tab{flex:1;text-align:center}.person{padding:8px 12px}.mini-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.progress-overall{padding:16px}.category{padding:0 11px 3px}.owner-head{padding:12px 14px}.check-label{font-size:.9rem}}
 @media print{body{background:white}.wrap{max-width:none;padding:0}.hero{background:white;color:#111;box-shadow:none;border:1px solid #aaa}.panel,.owner-card{box-shadow:none}.tabs,.persons,.footer,.custom,.warning{display:none}.items-area{display:block}.owner-card{page-break-inside:avoid;margin:12px 0}.check-row{padding:5px 8px}.check-row input{accent-color:#000}.intro{border:1px solid #aaa}}
 </style>
@@ -67,7 +74,14 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}
   <div class="intro panel"><strong>優先して確認：</strong>各自の薬・スマートフォン・充電器、旅館予約情報、車椅子と関連用品。10月下旬なので<strong>重ね着できる上着</strong>を用意。雨具は天候が変わった場合の備えとして入れています。海鮮のお土産用に<strong>クーラーボックス・保冷剤・密封袋</strong>も準備。<br><span class="helper">4人目は「妹」で仮設定。旅行メンバーや持ち物は画面から必要に応じて調整してください。</span></div>
   <div class="toolbar">
     <div class="tabs" aria-label="チェックの種類"><button id="btn-out" type="button" class="tab active" aria-pressed="true">行きの準備</button><button id="btn-back" type="button" class="tab" aria-pressed="false">帰りの忘れ物</button></div>
-    <div class="count" id="saveLabel">✓ チェック状況はこのブラウザに保存</div>
+    <div class="count" id="saveLabel">端末内に保存</div>
+  </div>
+  <div class="sync-panel" id="syncPanel" data-state="local" role="status" aria-live="polite">
+    <div class="sync-main"><span class="sync-name" id="syncStatus">個人端末に保存中（共有未設定）</span><div class="sync-actions">
+      <button type="button" class="sync-btn" id="shareLinkBtn">家族共有リンクを作成・コピー</button>
+      <button type="button" class="sync-btn" id="syncNowBtn" hidden>同期を再確認</button>
+    </div></div>
+    <p class="sync-desc" id="syncDesc">家族4人で同じチェック表を使うには、家族共有リンクをLINEなどで送ってください。</p>
   </div>
   <nav class="persons" id="personTabs" aria-label="人を選ぶ"></nav>
   <section class="progress-overall panel" aria-label="準備状況">
@@ -84,7 +98,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}
     <button type="button" class="action" id="resetBtn">チェックをリセット</button>
     <input id="fileInput" type="file" accept="application/json,.json" />
   </div>
-  <p class="warning">※ チェック内容は基本的に同一ブラウザ内のみ保存され、家族の別端末へ自動同期はされません。別端末へ移す場合は「チェック状況を保存（JSON）」→「保存データを読み込む」を利用してください。ブラウザ設定によっては、ローカルファイルの保存状態が保持されない場合があります。</p>
+  <p class="warning">※ 家族共有リンクで開くと、暗号化した変更履歴を第三者運営の公開Nostrリレーへ送信して自動同期を試みます。リンクを知る人は閲覧・編集できるため、リンクの転載は避けてください。外部リレーの停止・拒否・履歴削除によって同期できない場合があります。同期中も端末内に保存します。確実な控えは「チェック状況を保存（JSON）」で作成してください。</p>
 </main>
 <script>
 'use strict';
@@ -156,12 +170,20 @@ const RETURN_SPECIAL = {
  sister:[['身の回り','化粧品・スキンケア用品・イヤホン']]
 };
 const KEY='onomichi-packing-2026-v1';
+const roomMatch=location.hash.match(/^#family=([a-f0-9]{64})$/i);
+const FAMILY_KEY=roomMatch?roomMatch[1].toLowerCase():null;
+const LOCAL_KEY=FAMILY_KEY?KEY+'::family::'+FAMILY_KEY.slice(0,24):KEY;
+let remoteSync=null;
 let db = {checked:{}, custom:{}};
-try{const stored = JSON.parse(localStorage.getItem(KEY)||'null'); if(stored && typeof stored==='object'){db.checked=stored.checked && typeof stored.checked==='object'?stored.checked:{};db.custom=stored.custom && typeof stored.custom==='object'?stored.custom:{};}}catch(e){}
+try{const stored = JSON.parse(localStorage.getItem(LOCAL_KEY)||'null'); if(stored && typeof stored==='object'){db.checked=stored.checked && typeof stored.checked==='object'?stored.checked:{};db.custom=stored.custom && typeof stored.custom==='object'?stored.custom:{};}}catch(e){}
 let phase='out', view='all';
 const el=id=>document.getElementById(id);
 const uid=()=> String(Date.now()) + '-' + Math.random().toString(36).slice(2,10);
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){el('saveLabel').textContent='保存できません（ブラウザ設定を確認）';}};
+const save=()=>{
+ try{localStorage.setItem(LOCAL_KEY,JSON.stringify(db));}
+ catch(e){el('saveLabel').textContent='保存できません（ブラウザ設定を確認）';}
+ if(remoteSync)remoteSync.recordLocalChanges();
+};
 function itemsFor(owner,mode){
  const list=[];
  const src=mode==='out'?(owner==='shared'?COMMON_BASE:[...PERSONAL_BASE,...(SPECIAL[owner]||[])]):(owner==='shared'?RETURN_SHARED:[...RETURN_PERSONAL,...(RETURN_SPECIAL[owner]||[])]);
@@ -209,6 +231,177 @@ el('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({type:'onomichi
 el('importBtn').onclick=()=>el('fileInput').click();
 el('fileInput').onchange=async(ev)=>{const file=ev.target.files[0];if(!file)return;try{const obj=JSON.parse(await file.text());if(obj.type!=='onomichi-packing-backup'||!obj.checked||!obj.custom)throw new Error('形式が異なります');if(!confirm('現在のチェック・追加項目を保存データで上書きしますか？'))return;db={checked:obj.checked,custom:obj.custom};save();render();alert('読み込みました')}catch(e){alert('保存データを読み込めませんでした：'+e.message)}finally{ev.target.value=''}};
 render();
+// Nostr relays (not GitHub) retain encrypted per-item edit operations. No API key or family account needed.
+// Sharing the URL fragment is sharing read+write access; never put the secret into the public repo.
+const syncPanel=el('syncPanel'), syncStatus=el('syncStatus'), syncDesc=el('syncDesc');
+const RELAYS=['wss://nos.lol','wss://relay.primal.net','wss://relay.nostr.band'];
+const syncTag='onomichi-family-checklist-2026';
+const deepcopy=value=>JSON.parse(JSON.stringify(value));
+const getRoomURL=()=>new URL(location.pathname+location.search+location.hash,location.origin).href;
+function displaySync(state,title,description){
+ syncPanel.dataset.state=state;
+ syncStatus.textContent=title;
+ syncDesc.textContent=description;
+ el('saveLabel').textContent=state==='active'?'✓ 端末内保存 ＋ 家族共有中':'✓ 端末内に保存';
+}
+function toBase64(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s)}
+function fromBase64(s){const raw=atob(s);return Uint8Array.from(raw,c=>c.charCodeAt(0))}
+const bytesFromHex=s=>Uint8Array.from(s.match(/../g).map(p=>parseInt(p,16)));
+const strBytes=s=>new TextEncoder().encode(s);
+async function sha256(s){return new Uint8Array(await crypto.subtle.digest('SHA-256',strBytes(s)))}
+async function startFamilySync(){
+ if(!FAMILY_KEY)return;
+ displaySync('loading','共有データに接続しています','共有リンクを開いた端末のチェックを照合しています。接続できない場合も端末内に保存します。');
+ el('shareLinkBtn').textContent='家族共有リンクをコピー';
+ el('syncNowBtn').hidden=false;
+ const storageKey=KEY+'::operations::'+FAMILY_KEY.slice(0,24);
+ let log={};
+ try{const stored=JSON.parse(localStorage.getItem(storageKey)||'{}'); if(stored&&typeof stored==='object') log=stored;}catch(e){}
+ let nostr=null,pool=null,secret=null,pubkey='',cryptoKey=null,remoteResponses=0,published=0,sending=false, subscription=null;
+ const lastSnapshot=()=>deepcopy(db);
+ let previous=lastSnapshot();
+ const recordLog=()=>{try{localStorage.setItem(storageKey,JSON.stringify(log));}catch(e){displaySync('offline','容量不足：データ保存に失敗','JSON形式でバックアップを作成してください。')}};
+ const validateOp=o=>o&&typeof o==='object'&&typeof o.id==='string'&&/^[a-zA-Z0-9-]{8,100}$/.test(o.id)&&Number.isFinite(o.at)&&o.at>0&&o.at<4102444800000&&['check','add','delete'].includes(o.kind)&&typeof o.key==='string'&&o.key.length<250;
+ function rebuild(){
+  const next={checked:{},custom:{}};
+  Object.values(log).filter(validateOp).sort((a,b)=>a.at-b.at||a.id.localeCompare(b.id)).forEach(o=>{
+   if(o.kind==='check'){
+    if(o.key.split('::').length!==3)return;
+    if(o.value===true)next.checked[o.key]=true;
+    else delete next.checked[o.key];
+   } else {
+    const group=o.key.split('::');if(group.length!==2||!['out','back'].includes(group[0]))return;
+    const item=o.item;
+    if(!item||typeof item.id!=='string'||!item.id.startsWith('user-')||item.id.length>90)return;
+    const items=(next.custom[o.key]??=[]);
+    if(o.kind==='add'){
+     if(typeof item.label!=='string'||item.label.length>90)return;
+     if(!items.some(x=>x.id===item.id))items.push({id:item.id,label:item.label,cat:'追加した荷物'});
+    } else {
+     next.custom[o.key]=items.filter(x=>x.id!==item.id);
+     delete next.checked[[...group,item.id].join('::')];
+    }
+   }
+  });
+  db=next;previous=lastSnapshot();
+  try{localStorage.setItem(LOCAL_KEY,JSON.stringify(db))}catch(e){}
+  render();
+ }
+ function recordLocalChanges(){
+  const ops=[];
+  const before=previous,after=deepcopy(db);
+  const ck=new Set([...Object.keys(before.checked||{}),...Object.keys(after.checked||{})]);
+  for(const k of ck){
+   if(Boolean(before.checked[k])!==Boolean(after.checked[k]))ops.push({kind:'check',key:k,value:Boolean(after.checked[k])});
+  }
+  for(const group of new Set([...Object.keys(before.custom||{}),...Object.keys(after.custom||{})])){
+   const oldItems=new Map((before.custom[group]||[]).map(x=>[x.id,x]));
+   const newItems=new Map((after.custom[group]||[]).map(x=>[x.id,x]));
+   for(const [id,item] of newItems)if(!oldItems.has(id))ops.push({kind:'add',key:group,item:{id,label:item.label}});
+   for(const [id,item] of oldItems)if(!newItems.has(id))ops.push({kind:'delete',key:group,item:{id}});
+  }
+  previous=after;
+  for(const o of ops){
+   const op={...o,at:Date.now(),id:crypto.randomUUID()};
+   log[op.id]=op;
+  }
+  if(ops.length){recordLog();scheduleSend();}
+ }
+ // Handle previous local data explicitly; joining a family room never silently overwrites it.
+ // If a room has no operation history, rehydrate only the state already saved for THAT room.
+ if(Object.keys(log).length===0 && Object.keys(db.checked).length===0 && Object.values(db.custom).every(x=>!x.length)){} 
+ else if(Object.keys(log).length===0){
+   previous={checked:{},custom:{}};recordLocalChanges();
+ } else rebuild();
+ async function seal(o){
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},cryptoKey,strBytes(JSON.stringify(o)));
+  return JSON.stringify({v:1,iv:toBase64(iv),ct:toBase64(new Uint8Array(ct))});
+ }
+ async function unseal(str){
+  try{const v=JSON.parse(str);if(v.v!==1)return null;
+   const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:fromBase64(v.iv)},cryptoKey,fromBase64(v.ct));
+   const o=JSON.parse(new TextDecoder().decode(bytes));return validateOp(o)?o:null;
+  }catch(e){return null}
+ }
+ const pending=new Set();
+ async function accept(event){
+  if(!event||event.pubkey!==pubkey||pending.has(event.id))return;
+  pending.add(event.id);
+  const op=await unseal(event.content);
+  if(!op||log[op.id])return;
+  log[op.id]=op;recordLog();rebuild();
+ }
+ let syncTimer=null;
+ function scheduleSend(){if(!pool||sending)return;clearTimeout(syncTimer);syncTimer=setTimeout(()=>sendPending(),300)}
+ async function sendPending(){
+  if(!pool||sending)return;
+  sending=true;
+  try{
+   // A local edit remains marked unpublished until at least one relay acknowledges it.
+   const unsent=Object.values(log).filter(o=>o&&o.sent!==true).sort((a,b)=>a.at-b.at).slice(0,45);
+   for(const op of unsent){
+    const event=nostr.finalizeEvent({kind:1,created_at:Math.floor(op.at/1000),tags:[['t',syncTag]],content:await seal(op)},secret);
+    try{
+     await Promise.any(pool.publish(RELAYS,event));
+     op.sent=true;published++;recordLog();
+    }catch(e){displaySync('offline','共有先に書き込めません','変更はこの端末に残っています。通信回復後に「同期を再確認」を押してください。');break;}
+   }
+   if(remoteResponses>0||published>0){
+    const waiting=Object.values(log).filter(o=>o.sent!==true).length;
+    if(!waiting)displaySync('active','家族共有の同期が有効です',`共有先から応答あり。変更は自動で送受信します（保存済み ${published} 件）。`);
+   }
+  }finally{sending=false;}
+ }
+ function listen(){
+  if(subscription){try{subscription.close()}catch(e){}}
+  subscription=pool.subscribeMany(RELAYS,[{kinds:[1],authors:[pubkey],'#t':[syncTag],since:Math.floor(new Date('2026-10-20T00:00:00+09:00').getTime()/1000),limit:1500}],{
+   onevent:event=>void accept(event),
+   oneose:()=>{remoteResponses++;void sendPending();if(remoteResponses>0)displaySync('active','家族共有に接続中','共有履歴を受信し、新しいチェックは自動送信します。');}
+  });
+ }
+ async function refresh(){
+  if(!pool)return;
+  try{listen();await sendPending();}catch(e){displaySync('offline','同期の接続に問題があります','端末内には保存済みです。ネットワーク接続を確認してください。')}
+ }
+ try{
+  cryptoKey=await crypto.subtle.importKey('raw',await sha256(FAMILY_KEY+':packing-aes-v1'),'AES-GCM',false,['encrypt','decrypt']);
+  secret=await sha256(FAMILY_KEY+':packing-nostr-v1');
+  nostr=await import('https://esm.sh/nostr-tools@2.25.2?bundle');
+  pool=new nostr.SimplePool();pubkey=nostr.getPublicKey(secret);
+  remoteSync={recordLocalChanges,refresh};
+  listen();setTimeout(()=>{if(!remoteResponses && !published)displaySync('offline','共有サーバーの応答待ち','通信の制限などで同期できない場合があります。チェックは端末内に保存されます。')},13000);
+  setInterval(()=>{void refresh()},35000);
+  window.addEventListener('online',()=>void refresh());
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh()});
+  scheduleSend();
+ }catch(e){
+  console.error('Family sync initialization failed',e);
+  remoteSync={recordLocalChanges,refresh};
+  displaySync('offline','共有ライブラリの接続に失敗','この端末への保存は継続します。ブラウザの通信制限を確認してください。');
+ }
+ el('syncNowBtn').onclick=()=>void refresh();
+}
+el('shareLinkBtn').onclick=async()=>{
+ if(!FAMILY_KEY){
+   if(Object.keys(db.checked).length||Object.values(db.custom).some(x=>x.length)){
+    const ok=confirm('現在この端末に保存されているチェックを、新しく作る家族共有へ引き継ぎますか？\n「キャンセル」なら新しい共有は作りません。');
+    if(!ok)return;
+    try{localStorage.setItem(KEY+'::bootstrap',JSON.stringify(db))}catch(e){}
+   }
+   const secret=Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toString(16).padStart(2,'0')).join('');
+   location.hash='family='+secret;location.reload();return;
+ }
+ const url=getRoomURL();
+ try{await navigator.clipboard.writeText(url);alert('家族共有リンクをコピーしました。LINEで送ってください。\nこのURLを知る人は編集できます。');}
+ catch(e){prompt('こちらの共有リンクをコピーしてください',url)}
+};
+if(FAMILY_KEY){
+ // The temporary pre-share snapshot is created only via explicit confirmation.
+ const bootstrap=localStorage.getItem(KEY+'::bootstrap');
+ if(bootstrap){try{const v=JSON.parse(bootstrap);db={checked:v.checked||{},custom:v.custom||{}};localStorage.setItem(LOCAL_KEY,JSON.stringify(db));render();}catch(e){}localStorage.removeItem(KEY+'::bootstrap');}
+ void startFamilySync();
+}
 </script>
 </body>
 </html>
