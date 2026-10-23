@@ -231,6 +231,12 @@ el('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({type:'onomichi
 el('importBtn').onclick=()=>el('fileInput').click();
 el('fileInput').onchange=async(ev)=>{const file=ev.target.files[0];if(!file)return;try{const obj=JSON.parse(await file.text());if(obj.type!=='onomichi-packing-backup'||!obj.checked||!obj.custom)throw new Error('形式が異なります');if(!confirm('現在のチェック・追加項目を保存データで上書きしますか？'))return;db={checked:obj.checked,custom:obj.custom};save();render();alert('読み込みました')}catch(e){alert('保存データを読み込めませんでした：'+e.message)}finally{ev.target.value=''}};
 render();
+if(!FAMILY_KEY){
+  el('syncPanel').dataset.state='offline';
+  el('syncStatus').textContent='家族共有されていません';
+  el('syncDesc').textContent='このページのチェックは端末内保存のみです。家族で同期するには #family= が付いた同じ共有リンクを全員で開いてください。';
+  el('shareLinkBtn').textContent='新しい共有リンクを作成';
+}
 // Nostr relays (not GitHub) retain encrypted per-item edit operations. No API key or family account needed.
 // Sharing the URL fragment is sharing read+write access; never put the secret into the public repo.
 const syncPanel=el('syncPanel'), syncStatus=el('syncStatus'), syncDesc=el('syncDesc');
@@ -349,7 +355,7 @@ async function startFamilySync(){
    }
    if(remoteResponses>0||published>0){
     const waiting=Object.values(log).filter(o=>o.sent!==true).length;
-    if(!waiting)displaySync('active','家族共有の同期が有効です',`共有先から応答あり。変更は自動で送受信します（保存済み ${published} 件）。`);
+    if(!waiting && published>0)displaySync('active','共有先への書き込み成功',`リレーが変更を受け付けました（${published} 件）。他の端末に反映されるか確認してください。`);
    }
   }finally{sending=false;}
  }
@@ -357,7 +363,7 @@ async function startFamilySync(){
   if(subscription){try{subscription.close()}catch(e){}}
   subscription=pool.subscribeMany(RELAYS,[{kinds:[1],authors:[pubkey],'#t':[syncTag],since:Math.floor(new Date('2026-10-20T00:00:00+09:00').getTime()/1000),limit:1500}],{
    onevent:event=>void accept(event),
-   oneose:()=>{remoteResponses++;void sendPending();if(remoteResponses>0)displaySync('active','家族共有に接続中','共有履歴を受信し、新しいチェックは自動送信します。');}
+   oneose:()=>{remoteResponses++;void sendPending();displaySync('loading','共有先との通信を確認','履歴読込完了の通知を受けました。別端末への反映成功を確認したものではありません。');}
   });
  }
  async function refresh(){
