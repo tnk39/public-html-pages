@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<title>尾道旅行｜荷物チェックリスト</title>
+<style>
+:root {--bg:#f6f8f7;--card:#fff;--ink:#18332f;--muted:#627773;--line:#dce7e3;--green:#157260;--deep:#0c5145;--pale:#e1f2eb;--blue:#476b80;--shadow:0 7px 28px rgba(18,58,48,.07)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.55}
+.wrap{max-width:1000px;margin:auto;padding:24px 18px 70px}
+.hero{background:linear-gradient(115deg,#0d5d50,#1c806b 60%,#388a83);color:white;border-radius:22px;padding:24px 26px;box-shadow:var(--shadow)}
+.kicker{font-size:.76rem;letter-spacing:.14em;font-weight:800;opacity:.82;margin-bottom:5px}
+h1{font-size:clamp(1.55rem,4vw,2.4rem);line-height:1.3;letter-spacing:.01em;margin:0 0 8px}
+.subtitle{font-size:.9rem;opacity:.94;margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.chip{padding:5px 10px;border:1px solid #ffffff65;border-radius:999px;font-size:.8rem;background:#ffffff18}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.intro{padding:17px 20px;margin:16px 0;color:#344c46;font-size:.87rem}
+.intro strong{color:var(--deep)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0 12px}
+.tabs,.persons{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.tab,.person{border:1px solid var(--line);background:white;color:var(--ink);border-radius:11px;padding:9px 15px;font-weight:700;font-size:.87rem}
+.tab.active,.person.active{border-color:var(--green);color:white;background:var(--green)}
+.persons{margin:0 0 16px}
+.progress-overall{padding:19px 21px;margin:16px 0 20px}
+.progress-overall header,.person-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.progress-title{font-weight:800;font-size:1rem}
+.percent{font-weight:900;font-size:1.65rem;line-height:1;color:var(--green);font-variant-numeric:tabular-nums}
+.bar{height:10px;background:#e6eeea;border-radius:99px;overflow:hidden;margin:13px 0 7px}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#2d9b7b,#12725e);transition:width .2s;border-radius:99px}
+.count{font-size:.79rem;color:var(--muted)}
+.mini-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:16px}
+.mini{border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#f9fbfa}
+.mini-name{font-size:.75rem;font-weight:700;color:#506d66}.mini-value{font-size:1.15rem;font-weight:900;color:var(--deep)}
+.items-area{display:grid;gap:18px}
+.owner-card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:white;box-shadow:var(--shadow)}
+.owner-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 19px;border-bottom:1px solid var(--line);background:#f1f8f5}
+.owner-head h2{margin:0;font-size:1.1rem}
+.owner-stat{font-size:.79rem;color:var(--deep);font-weight:800}
+.category{padding:0 17px 3px}.category + .category{border-top:1px solid #edf1ef}
+.category h3{font-size:.81rem;color:#557169;font-weight:800;letter-spacing:.03em;margin:13px 3px 5px}
+.check-row{display:flex;align-items:flex-start;gap:11px;min-height:42px;padding:9px 8px;border-radius:8px;cursor:pointer}
+.check-row:hover{background:#f2f8f5}.check-row input{width:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.check-label{flex:1;font-size:.94rem}.check-row:has(input:checked) .check-label{text-decoration:line-through;color:#87958e}
+.badge-note{display:inline;font-size:.69rem;color:#785725;background:#fff3d8;padding:2px 6px;border-radius:4px;margin-left:8px;font-weight:800;text-decoration:none}
+.custom{padding:14px 17px 17px;border-top:1px solid var(--line);background:#fcfdfc}
+.custom-row{display:flex;gap:8px}.custom input{flex:1;min-width:0;padding:10px 11px;border:1px solid #cbdcd4;border-radius:9px;font:inherit;font-size:.87rem}.custom button{padding:10px 13px;border:none;border-radius:9px;background:var(--deep);color:white;font-weight:700}
+.delete{background:none;border:none;color:#8f746c;font-size:.74rem;text-decoration:underline;padding:5px;align-self:center}
+.helper{font-size:.76rem;color:#60756d;margin:8px 0 0}
+.footer{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.action{background:white;border:1px solid #cddfd7;border-radius:10px;padding:10px 15px;color:#195c4c;font-size:.84rem;font-weight:800}
+.warning{font-size:.81rem;color:#62726f;margin-top:16px}
+#fileInput{display:none}
+@media(max-width:700px){.wrap{padding:12px 12px 55px}.hero{padding:21px 17px;border-radius:18px}.intro{padding:13px 15px}.toolbar{display:block}.tabs{margin-bottom:13px}.tab{flex:1;text-align:center}.person{padding:8px 12px}.mini-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.progress-overall{padding:16px}.category{padding:0 11px 3px}.owner-head{padding:12px 14px}.check-label{font-size:.9rem}}
+@media print{body{background:white}.wrap{max-width:none;padding:0}.hero{background:white;color:#111;box-shadow:none;border:1px solid #aaa}.panel,.owner-card{box-shadow:none}.tabs,.persons,.footer,.custom,.warning{display:none}.items-area{display:block}.owner-card{page-break-inside:avoid;margin:12px 0}.check-row{padding:5px 8px}.check-row input{accent-color:#000}.intro{border:1px solid #aaa}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="hero">
+    <div class="kicker">FAMILY TRAVEL · PACKING LIST</div>
+    <h1>尾道旅行<br>荷物チェックリスト</h1>
+    <p class="subtitle">2026年10月24日（土）〜25日（日）｜1泊2日・車移動</p>
+    <div class="chips"><span class="chip">4人分を個別管理</span><span class="chip">出発前／帰宅前</span><span class="chip">旅館 17:00チェックイン</span><span class="chip">朝・夕食付き</span></div>
+  </div>
+  <div class="intro panel"><strong>優先して確認：</strong>各自の薬・スマートフォン・充電器、旅館予約情報、車椅子と関連用品。10月下旬なので<strong>重ね着できる上着</strong>を用意。雨具は天候が変わった場合の備えとして入れています。海鮮のお土産用に<strong>クーラーボックス・保冷剤・密封袋</strong>も準備。<br><span class="helper">4人目は「妹」で仮設定。旅行メンバーや持ち物は画面から必要に応じて調整してください。</span></div>
+  <div class="toolbar">
+    <div class="tabs" aria-label="チェックの種類"><button id="btn-out" type="button" class="tab active" aria-pressed="true">行きの準備</button><button id="btn-back" type="button" class="tab" aria-pressed="false">帰りの忘れ物</button></div>
+    <div class="count" id="saveLabel">✓ チェック状況はこのブラウザに保存</div>
+  </div>
+  <nav class="persons" id="personTabs" aria-label="人を選ぶ"></nav>
+  <section class="progress-overall panel" aria-label="準備状況">
+    <header><span class="progress-title" id="progressTitle">全員の準備率</span><span class="percent" id="percent">0%</span></header>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="fill" id="fill"></div></div>
+    <div class="count" id="count"></div>
+    <div class="mini-grid" id="miniGrid"></div>
+  </section>
+  <div id="itemsArea" class="items-area"></div>
+  <div class="footer">
+    <button type="button" class="action" id="exportBtn">チェック状況を保存（JSON）</button>
+    <button type="button" class="action" id="importBtn">保存データを読み込む</button>
+    <button type="button" class="action" id="printBtn">印刷する</button>
+    <button type="button" class="action" id="resetBtn">チェックをリセット</button>
+    <input id="fileInput" type="file" accept="application/json,.json" />
+  </div>
+  <p class="warning">※ チェック内容は基本的に同一ブラウザ内のみ保存され、家族の別端末へ自動同期はされません。別端末へ移す場合は「チェック状況を保存（JSON）」→「保存データを読み込む」を利用してください。ブラウザ設定によっては、ローカルファイルの保存状態が保持されない場合があります。</p>
+</main>
+<script>
+'use strict';
+const PEOPLE = [{id:'self',name:'本人'},{id:'father',name:'父'},{id:'mother',name:'母'},{id:'sister',name:'妹'}];
+const OWNERS = [{id:'shared',name:'共通'}, ...PEOPLE];
+const COMMON_BASE = [
+  ['貴重品・予約', '旅館の予約情報（住所・電話・チェックイン時刻）', '宿泊先確認'],
+  ['貴重品・予約', '財布とは別の予備現金・小銭'],
+  ['車・移動', '車の鍵・予備鍵'],
+  ['車・移動', 'ETCカードの装着・残高／利用可否確認'],
+  ['車・移動', 'ナビ・駐車場・立ち寄り先の情報'],
+  ['車・移動', '車内の飲み物'],
+  ['車・移動', 'ボックスティッシュ・ウェットティッシュ'],
+  ['車・移動', 'ビニール袋・ごみ袋'],
+  ['天候・屋外', '折りたたみ傘または雨具'],
+  ['天候・屋外', '寒さ対策用のひざ掛け（車内用）'],
+  ['写真・電子機器', 'カメラ（使う場合）'],
+  ['写真・電子機器', 'カメラのバッテリー・SDカード'],
+  ['写真・電子機器', 'モバイルバッテリー・共用ケーブル'],
+  ['写真・電子機器', '懐中電灯（必要なら）'],
+  ['その他', 'エコバッグ（買い物用）'],
+  ['その他', '救急セット（絆創膏など）'],
+  ['海鮮・お土産', 'クーラーボックス（15〜25L程度）'],
+  ['海鮮・お土産', '保冷剤（出発前に十分凍らせる）'],
+  ['海鮮・お土産', 'お土産用袋（海鮮用の密封袋・汁漏れ防止袋）']
+];
+const PERSONAL_BASE = [
+  ['必需品', '財布・現金・キャッシュカード'],
+  ['必需品', 'スマートフォン'],
+  ['必需品', '健康保険証またはマイナ保険証など'],
+  ['必需品', '必要な常用薬・お薬手帳'],
+  ['衣類', '翌日の着替え（下着・靴下）'],
+  ['衣類', '翌日の服'],
+  ['衣類', '上着・羽織もの（朝夕の寒さ対策）'],
+  ['身の回り', '洗面・歯磨き用品（必要なもの）'],
+  ['身の回り', '眼鏡・コンタクト用品（使う場合）'],
+  ['電子機器', 'スマホ充電ケーブル・充電器']
+];
+const SPECIAL = {
+ self: [ ['身の回り','イヤホン'],['身の回り','免許証（運転する場合）'],['電子機器','スマホの空き容量・写真保存の確認'] ],
+ father: [ ['車椅子関連','車椅子本体（折りたたみ・積載確認）'],['車椅子関連','車椅子用クッション'],['車椅子関連','ブレーキ・タイヤ・フットレストの確認'],['車椅子関連','必要な移乗・介助用品'],['介護・衛生','大人用おむつ・パッド（予備を含む）'],['介護・衛生','おしりふき・ウェットシート'],['介護・衛生','使用済み用品の防臭袋'],['介護・衛生','着替えの予備（汚れ対策）'] ],
+ mother: [ ['身の回り','化粧品・スキンケア用品（必要分）'],['身の回り','ハンドバッグなど外出用小物'] ],
+ sister: [ ['身の回り','化粧品・スキンケア用品（必要分）'],['身の回り','イヤホンなど個人の小物'] ]
+};
+const RETURN_SHARED = [
+ ['部屋・館内','部屋・洗面所・風呂・トイレの忘れ物確認'],
+ ['部屋・館内','コンセントに差した充電器・コードの回収'],
+ ['部屋・館内','クローゼット・引き出し・金庫の確認'],
+ ['部屋・館内','寝具の周囲・ベッド下・座布団周りの確認'],
+ ['出発直前','旅館の鍵の返却・精算'],
+ ['出発直前','車内へ全員の荷物を積んだか確認'],
+ ['出発直前','お土産・冷蔵品の積み忘れ確認'],
+ ['出発直前','傘・エコバッグ・カメラ類の回収'],
+ ['出発直前','車椅子関連用品を積み直したか確認'],
+ ['出発直前','クーラーボックス・保冷剤・海鮮のお土産を積んだか確認']
+];
+const RETURN_PERSONAL = [
+ ['貴重品','財布・スマートフォン・鍵・身分証'],
+ ['電子機器','充電器・ケーブル・モバイルバッテリー'],
+ ['衣類','着替え・上着・靴下など'],
+ ['身の回り','洗面用品・眼鏡・コンタクト用品'],
+ ['身の回り','常用薬・お薬手帳'],
+ ['最終確認','手元とバッグの中を再確認']
+];
+const RETURN_SPECIAL = {
+ self:[['電子機器','イヤホン・カメラ関連品']],
+ father:[['車椅子関連','車椅子・クッション・介助用品'],['介護・衛生','おむつ・パッド・衛生用品の残り']],
+ mother:[['身の回り','化粧品・スキンケア用品']],
+ sister:[['身の回り','化粧品・スキンケア用品・イヤホン']]
+};
+const KEY='onomichi-packing-2026-v1';
+let db = {checked:{}, custom:{}};
+try{const stored = JSON.parse(localStorage.getItem(KEY)||'null'); if(stored && typeof stored==='object'){db.checked=stored.checked && typeof stored.checked==='object'?stored.checked:{};db.custom=stored.custom && typeof stored.custom==='object'?stored.custom:{};}}catch(e){}
+let phase='out', view='all';
+const el=id=>document.getElementById(id);
+const uid=()=> String(Date.now()) + '-' + Math.random().toString(36).slice(2,10);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db));}catch(e){el('saveLabel').textContent='保存できません（ブラウザ設定を確認）';}};
+function itemsFor(owner,mode){
+ const list=[];
+ const src=mode==='out'?(owner==='shared'?COMMON_BASE:[...PERSONAL_BASE,...(SPECIAL[owner]||[])]):(owner==='shared'?RETURN_SHARED:[...RETURN_PERSONAL,...(RETURN_SPECIAL[owner]||[])]);
+ src.forEach(([cat,label,note],i)=>list.push({id:'base-'+i,cat,label,note}));
+ const customKey=mode+'::'+owner;
+ (db.custom[customKey]||[]).forEach(it=>list.push({...it,cat:'追加した荷物',custom:true}));
+ return list;
+}
+const checkKey=(mode,owner,id)=>[mode,owner,id].join('::');
+function stats(owner){const items=itemsFor(owner,phase);const done=items.filter(x=>Boolean(db.checked[checkKey(phase,owner,x.id)])).length;return {done,total:items.length,pct:items.length?Math.round(done*100/items.length):100};}
+function make(tag,cls,txt){const node=document.createElement(tag);if(cls)node.className=cls;if(txt!==undefined)node.textContent=txt;return node;}
+function render(){
+ el('btn-out').classList.toggle('active',phase==='out');el('btn-back').classList.toggle('active',phase==='back');
+ el('btn-out').setAttribute('aria-pressed',String(phase==='out'));el('btn-back').setAttribute('aria-pressed',String(phase==='back'));
+ const tabs=el('personTabs');tabs.replaceChildren();
+ [{id:'all',name:'全員'},...OWNERS].forEach(o=>{const b=make('button','person'+(view===o.id?' active':''),o.name);b.type='button';b.setAttribute('aria-pressed',String(view===o.id));b.addEventListener('click',()=>{view=o.id;render()});tabs.appendChild(b)});
+ const selected=view==='all'?OWNERS:OWNERS.filter(x=>x.id===view);
+ const totals=selected.reduce((a,o)=>{const s=stats(o.id);a.done+=s.done;a.total+=s.total;return a},{done:0,total:0});
+ const percent=totals.total?Math.round(totals.done*100/totals.total):100;
+ el('progressTitle').textContent=(view==='all'?'全員':OWNERS.find(x=>x.id===view).name)+(phase==='out'?'の準備率':'の回収確認率');
+ el('percent').textContent=percent+'%';el('count').textContent=`${totals.done} / ${totals.total} 項目完了`;
+ el('fill').style.width=percent+'%';el('progressBar').setAttribute('aria-valuenow',String(percent));
+ const mini=el('miniGrid');mini.replaceChildren();
+ OWNERS.forEach(o=>{const s=stats(o.id);const card=make('div','mini');card.append(make('div','mini-name',o.name),make('div','mini-value',s.pct+'%'));mini.appendChild(card)});
+ const area=el('itemsArea');area.replaceChildren();
+ selected.forEach(owner=>{
+   const card=make('section','owner-card');const head=make('header','owner-head');head.append(make('h2','',owner.name),make('div','owner-stat',stats(owner.id).done+' / '+stats(owner.id).total+' 完了'));card.appendChild(head);
+   const grouped=new Map(); itemsFor(owner.id,phase).forEach(it=>{if(!grouped.has(it.cat))grouped.set(it.cat,[]);grouped.get(it.cat).push(it)});
+   for(const [category,items] of grouped){
+     const section=make('section','category');section.appendChild(make('h3','',category));
+     items.forEach(it=>{
+       const row=make('label','check-row');const checkbox=make('input');checkbox.type='checkbox';checkbox.checked=Boolean(db.checked[checkKey(phase,owner.id,it.id)]);checkbox.addEventListener('change',()=>{db.checked[checkKey(phase,owner.id,it.id)]=checkbox.checked;save();render()});
+       const label=make('span','check-label',it.label);if(it.note)label.appendChild(make('span','badge-note',it.note));row.append(checkbox,label);
+       if(it.custom){const del=make('button','delete','削除');del.type='button';del.setAttribute('aria-label',it.label+'を削除');del.onclick=(ev)=>{ev.preventDefault();const k=phase+'::'+owner.id;db.custom[k]=(db.custom[k]||[]).filter(x=>x.id!==it.id);delete db.checked[checkKey(phase,owner.id,it.id)];save();render()};row.appendChild(del)}
+       section.appendChild(row);
+     });card.appendChild(section);
+   }
+   const custom=make('div','custom');const form=make('form','custom-row');const input=make('input');input.placeholder=owner.name+'の荷物を追加';input.maxLength=90;input.setAttribute('aria-label',owner.name+'の荷物を追加');const submit=make('button','','追加');submit.type='submit';form.append(input,submit);form.addEventListener('submit',e=>{e.preventDefault();const label=input.value.trim();if(!label)return;const k=phase+'::'+owner.id;(db.custom[k]??=[]).push({id:'user-'+uid(),label,cat:'追加した荷物'});save();render()});custom.appendChild(form);card.appendChild(custom);area.appendChild(card);
+ });
+}
+el('btn-out').onclick=()=>{phase='out';render()};el('btn-back').onclick=()=>{phase='back';render()};
+el('resetBtn').onclick=()=>{if(confirm('行き・帰りのすべてのチェックを解除しますか？（追加した荷物は残ります）')){db.checked={};save();render()}};
+el('printBtn').onclick=()=>window.print();
+el('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({type:'onomichi-packing-backup',version:1,exportedAt:new Date().toISOString(),...db},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='尾道旅行_荷物チェック保存.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000)};
+el('importBtn').onclick=()=>el('fileInput').click();
+el('fileInput').onchange=async(ev)=>{const file=ev.target.files[0];if(!file)return;try{const obj=JSON.parse(await file.text());if(obj.type!=='onomichi-packing-backup'||!obj.checked||!obj.custom)throw new Error('形式が異なります');if(!confirm('現在のチェック・追加項目を保存データで上書きしますか？'))return;db={checked:obj.checked,custom:obj.custom};save();render();alert('読み込みました')}catch(e){alert('保存データを読み込めませんでした：'+e.message)}finally{ev.target.value=''}};
+render();
+</script>
+</body>
+</html>
