@@ -80,6 +80,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}
     <div class="sync-main"><span class="sync-name" id="syncStatus">個人端末に保存中（共有未設定）</span><div class="sync-actions">
       <button type="button" class="sync-btn" id="shareLinkBtn">家族共有リンクを作成・コピー</button>
       <button type="button" class="sync-btn" id="syncNowBtn" hidden>同期を再確認</button>
+      <button type="button" class="sync-btn" id="importLocalBtn" hidden>以前のチェックを共有に取り込む</button>
     </div></div>
     <p class="sync-desc" id="syncDesc">家族4人で同じチェック表を使うには、家族共有リンクをLINEなどで送ってください。</p>
   </div>
@@ -243,7 +244,7 @@ const syncPanel=el('syncPanel'), syncStatus=el('syncStatus'), syncDesc=el('syncD
 const RELAYS=['wss://nos.lol','wss://relay.primal.net','wss://relay.nostr.band'];
 const syncTag='onomichi-family-checklist-2026';
 const deepcopy=value=>JSON.parse(JSON.stringify(value));
-const getRoomURL=()=>new URL(location.pathname+location.search+location.hash,location.origin).href;
+const getRoomURL=()=>{const u=new URL(location.href);u.searchParams.set('openExternalBrowser','1');return u.href;};
 function displaySync(state,title,description){
  syncPanel.dataset.state=state;
  syncStatus.textContent=title;
@@ -258,12 +259,12 @@ async function sha256(s){return new Uint8Array(await crypto.subtle.digest('SHA-2
 async function startFamilySync(){
  if(!FAMILY_KEY)return;
  displaySync('loading','共有データに接続しています','共有リンクを開いた端末のチェックを照合しています。接続できない場合も端末内に保存します。');
- el('shareLinkBtn').textContent='家族共有リンクをコピー';
+ el('shareLinkBtn').textContent='LINE用・家族共有リンクをコピー';
  el('syncNowBtn').hidden=false;
  const storageKey=KEY+'::operations::'+FAMILY_KEY.slice(0,24);
  let log={};
  try{const stored=JSON.parse(localStorage.getItem(storageKey)||'{}'); if(stored&&typeof stored==='object') log=stored;}catch(e){}
- let nostr=null,pool=null,secret=null,pubkey='',cryptoKey=null,remoteResponses=0,published=0,sending=false, subscription=null;
+ let nostr=null,pool=null,secret=null,pubkey='',cryptoKey=null,remoteResponses=0,remoteAccepted=0,published=0,sending=false, subscription=null;
  const lastSnapshot=()=>deepcopy(db);
  let previous=lastSnapshot();
  const recordLog=()=>{try{localStorage.setItem(storageKey,JSON.stringify(log));}catch(e){displaySync('offline','容量不足：データ保存に失敗','JSON形式でバックアップを作成してください。')}};
@@ -337,6 +338,8 @@ async function startFamilySync(){
   const op=await unseal(event.content);
   if(!op||log[op.id])return;
   log[op.id]=op;recordLog();rebuild();
+  remoteAccepted++;
+  displaySync('active','別端末のチェックを受信しました',`共有先から新たな変更を ${remoteAccepted} 件受信しました。`);
  }
  let syncTimer=null;
  function scheduleSend(){if(!pool||sending)return;clearTimeout(syncTimer);syncTimer=setTimeout(()=>sendPending(),300)}
@@ -363,7 +366,7 @@ async function startFamilySync(){
   if(subscription){try{subscription.close()}catch(e){}}
   subscription=pool.subscribeMany(RELAYS,[{kinds:[1],authors:[pubkey],'#t':[syncTag],since:Math.floor(new Date('2026-10-20T00:00:00+09:00').getTime()/1000),limit:1500}],{
    onevent:event=>void accept(event),
-   oneose:()=>{remoteResponses++;void sendPending();displaySync('loading','共有先との通信を確認','履歴読込完了の通知を受けました。別端末への反映成功を確認したものではありません。');}
+   oneose:()=>{remoteResponses++;void sendPending();if(remoteAccepted===0)displaySync('loading','共有先との通信を確認','履歴読込完了の通知を受けました。別端末への反映成功を確認したものではありません。');}
   });
  }
  async function refresh(){
@@ -403,6 +406,30 @@ el('shareLinkBtn').onclick=async()=>{
  catch(e){prompt('こちらの共有リンクをコピーしてください',url)}
 };
 if(FAMILY_KEY){
+ const importButton=el('importLocalBtn');
+ const importKey=KEY+'::imported::'+FAMILY_KEY.slice(0,24);
+ let prior=null;
+ try{prior=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+ const canImport=prior&&typeof prior==='object'&&
+   (Object.values(prior.checked||{}).some(v=>v===true)||
+    Object.values(prior.custom||{}).some(v=>Array.isArray(v)&&v.length));
+ if(canImport&&!localStorage.getItem(importKey)){
+  importButton.hidden=false;
+  importButton.onclick=()=>{
+   if(!confirm('以前この端末でチェックした荷物を家族共有へ追加しますか？\n既存の共有チェックは維持します。'))return;
+   for(const [k,v] of Object.entries(prior.checked||{}))if(v===true)db.checked[k]=true;
+   for(const [group,arr] of Object.entries(prior.custom||{})){
+    if(!Array.isArray(arr))continue;
+    const current=db.custom[group]??[];
+    for(const item of arr)if(item&&typeof item.id==='string'&&typeof item.label==='string'&&!current.some(it=>it.id===item.id))current.push(item);
+    db.custom[group]=current;
+   }
+   save();render();
+   try{localStorage.setItem(importKey,'1')}catch(e){}
+   importButton.hidden=true;
+   alert('以前のチェックを取り込みました。共有への送信状態をご確認ください。');
+  };
+ }
  // The temporary pre-share snapshot is created only via explicit confirmation.
  const bootstrap=localStorage.getItem(KEY+'::bootstrap');
  if(bootstrap){try{const v=JSON.parse(bootstrap);db={checked:v.checked||{},custom:v.custom||{}};localStorage.setItem(LOCAL_KEY,JSON.stringify(db));render();}catch(e){}localStorage.removeItem(KEY+'::bootstrap');}
